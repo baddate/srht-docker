@@ -1,4 +1,4 @@
-FROM docker.io/alpine:3.19 as srht-core
+FROM docker.io/alpine:3.19 AS srht-core
 RUN mkdir -p /var/cache/apk && ln -s /var/cache/apk /etc/apk/cache
 RUN --mount=type=cache,target=/var/cache/apk \
 	apk -U add curl
@@ -11,56 +11,56 @@ ENV SRHT_PATH=/src/core.sr.ht/srht
 ENV PYTHONPATH=/src/core.sr.ht
 ENV PATH="${PATH}:/src/core.sr.ht"
 
-FROM srht-core as srht-core-build
+FROM srht-core AS srht-core-build
 RUN --mount=type=cache,target=/var/cache/apk \
 	apk -U add go make sassc minify
 
-FROM srht-core-build as srht-meta-build
+FROM srht-core-build AS srht-meta-build
 ADD meta.sr.ht /src/meta.sr.ht/
 RUN --mount=type=cache,target=/root/.cache/go-build \
 	--mount=type=cache,target=/root/go/pkg/mod \
 	cd /src/meta.sr.ht && make
 
-FROM srht-core-build as srht-todo-build
+FROM srht-core-build AS srht-todo-build
 ADD todo.sr.ht /src/todo.sr.ht/
 RUN --mount=type=cache,target=/root/.cache/go-build \
 	--mount=type=cache,target=/root/go/pkg/mod \
 	cd /src/todo.sr.ht && make
 
-FROM srht-core-build as srht-git-build
+FROM srht-core-build AS srht-git-build
 ADD git.sr.ht /src/git.sr.ht/
 ADD scm.sr.ht /src/scm.sr.ht/
 RUN --mount=type=cache,target=/root/.cache/go-build \
 	--mount=type=cache,target=/root/go/pkg/mod \
 	cd /src/git.sr.ht && make
 
-FROM srht-core-build as srht-man-build
+FROM srht-core-build AS srht-man-build
 ADD man.sr.ht /src/man.sr.ht/
 RUN --mount=type=cache,target=/root/.cache/go-build \
 	--mount=type=cache,target=/root/go/pkg/mod \
 	cd /src/man.sr.ht && make
 
-FROM srht-core-build as srht-paste-build
+FROM srht-core-build AS srht-paste-build
 ADD paste.sr.ht /src/paste.sr.ht/
 RUN --mount=type=cache,target=/root/.cache/go-build \
 	--mount=type=cache,target=/root/go/pkg/mod \
 	cd /src/paste.sr.ht && make
 
-FROM srht-core as srht-meta
+FROM srht-core AS srht-meta
 RUN --mount=type=cache,target=/var/cache/apk \
 	apk -U add meta.sr.ht
 COPY --from=srht-meta-build /src/meta.sr.ht /src/meta.sr.ht
 ENV PYTHONPATH="${PYTHONPATH}:/src/meta.sr.ht"
 ENV PATH="${PATH}:/src/meta.sr.ht"
 
-FROM srht-core as srht-todo
+FROM srht-core AS srht-todo
 RUN --mount=type=cache,target=/var/cache/apk \
 	apk -U add todo.sr.ht
 COPY --from=srht-todo-build /src/todo.sr.ht /src/todo.sr.ht
 ENV PYTHONPATH="${PYTHONPATH}:/src/todo.sr.ht"
 ENV PATH="${PATH}:/src/todo.sr.ht"
 
-FROM srht-core as srht-git
+FROM srht-core AS srht-git
 RUN --mount=type=cache,target=/var/cache/apk \
 	apk -U add git.sr.ht openssh
 ADD scm.sr.ht /src/scm.sr.ht/
@@ -69,14 +69,14 @@ RUN passwd -u git # Unlock account to allow SSH login
 ENV PYTHONPATH="${PYTHONPATH}:/src/scm.sr.ht:/src/git.sr.ht"
 ENV PATH="${PATH}:/src/git.sr.ht"
 
-FROM srht-core as srht-man
+FROM srht-core AS srht-man
 RUN --mount=type=cache,target=/var/cache/apk \
 	apk -U add man.sr.ht
 COPY --from=srht-man-build /src/man.sr.ht /src/man.sr.ht
 ENV PYTHONPATH="${PYTHONPATH}:/src/man.sr.ht"
 ENV PATH="${PATH}:/src/man.sr.ht"
 
-FROM srht-core as srht-paste
+FROM srht-core AS srht-paste
 RUN --mount=type=cache,target=/var/cache/apk \
 	apk -U add paste.sr.ht
 COPY --from=srht-paste-build /src/paste.sr.ht /src/paste.sr.ht
