@@ -38,4 +38,4 @@ To pull changes from all repositories:
 
     make pull
 
-[hut]: https://sr.ht/~emersion/hut/
+[hut]: https://sr.ht/~xenrox/hut/
