@@ -1,7 +1,5 @@
 # sr.ht-container-compose
 
-> **Warning**: this project is not maintained anymore.
-
 The first time sr.ht-container-compose is used, sr.ht sources need to be cloned
 locally:
 
