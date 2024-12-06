@@ -24,6 +24,7 @@ The following services are included:
   SSH access at ssh://git@127.0.0.1:5901
 - man.sr.ht: web frontend at http://127.0.0.1:5004
 - paste.sr.ht: web frontend at http://127.0.0.1:5011
+- hub.sr.ht: web frontend at http://127.0.0.1:5012
 - minio: web frontend at http://127.0.0.1:9001,
   username: minio, password: jIPk1RZ8gdhQwnUL4YtrOAXsFpHvb4Mw8hEwfLq
 

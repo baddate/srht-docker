@@ -46,6 +46,12 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
 	--mount=type=cache,target=/root/go/pkg/mod \
 	cd /src/paste.sr.ht && make
 
+FROM srht-core-build AS srht-hub-build
+ADD hub.sr.ht /src/hub.sr.ht/
+RUN --mount=type=cache,target=/root/.cache/go-build \
+	--mount=type=cache,target=/root/go/pkg/mod \
+	cd /src/hub.sr.ht && make
+
 FROM srht-core AS srht-meta
 RUN --mount=type=cache,target=/var/cache/apk \
 	apk -U add meta.sr.ht
@@ -82,3 +88,10 @@ RUN --mount=type=cache,target=/var/cache/apk \
 COPY --from=srht-paste-build /src/paste.sr.ht /src/paste.sr.ht
 ENV PYTHONPATH="${PYTHONPATH}:/src/paste.sr.ht"
 ENV PATH="${PATH}:/src/paste.sr.ht"
+
+FROM srht-core AS srht-hub
+RUN --mount=type=cache,target=/var/cache/apk \
+	apk -U add hub.sr.ht
+COPY --from=srht-hub-build /src/hub.sr.ht /src/hub.sr.ht
+ENV PYTHONPATH="${PYTHONPATH}:/src/hub.sr.ht"
+ENV PATH="${PATH}:/src/hub.sr.ht"

@@ -1,4 +1,4 @@
-repos = core.sr.ht meta.sr.ht todo.sr.ht scm.sr.ht git.sr.ht man.sr.ht paste.sr.ht
+repos = core.sr.ht meta.sr.ht todo.sr.ht scm.sr.ht git.sr.ht man.sr.ht paste.sr.ht hub.sr.ht
 
 .PHONY: init
 .ONESHELL:
