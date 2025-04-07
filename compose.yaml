@@ -74,7 +74,7 @@ services:
       - postgres
     ports:
       - "127.0.0.1:5100:5100"
-    command: /src/meta.sr.ht/api/api
+    command: /src/meta.sr.ht/meta.sr.ht-api
   meta:
     <<: *srht-service
     build:
@@ -104,7 +104,7 @@ services:
           action: rebuild
     ports:
       - "127.0.0.1:5103:5103"
-    command: /src/todo.sr.ht/api/api
+    command: /src/todo.sr.ht/todo.sr.ht-api
   todo:
     <<: *srht-service
     build:
@@ -138,7 +138,7 @@ services:
       - todo-api
     ports:
       - "127.0.0.1:5903:5903"
-    command: /src/todo.sr.ht/todosrht-lmtp
+    command: /src/todo.sr.ht/todo.sr.ht-lmtp
   git-api:
     <<: *srht-service
     build:
@@ -156,7 +156,7 @@ services:
           action: rebuild
     ports:
       - "127.0.0.1:5101:5101"
-    command: /src/git.sr.ht/api/api
+    command: /src/git.sr.ht/git.sr.ht-api
   git:
     <<: *srht-service
     build:
@@ -220,7 +220,7 @@ services:
           action: rebuild
     ports:
       - "127.0.0.1:5104:5104"
-    command: /src/man.sr.ht/api/api
+    command: /src/man.sr.ht/man.sr.ht-api
   man:
     <<: *srht-service
     build:
@@ -251,7 +251,7 @@ services:
           action: rebuild
     ports:
       - "127.0.0.1:5111:5111"
-    command: /src/paste.sr.ht/api/api
+    command: /src/paste.sr.ht/paste.sr.ht-api
   paste:
     <<: *srht-service
     build:
@@ -282,7 +282,7 @@ services:
           action: rebuild
     ports:
       - "127.0.0.1:5112:5112"
-    command: /src/hub.sr.ht/api/api
+    command: /src/hub.sr.ht/hub.sr.ht-api
   hub:
     <<: *srht-service
     build:
