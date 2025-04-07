@@ -33,8 +33,10 @@ volumes:
   git-repos:
 
 services:
-  redis:
-    image: "redis:7.2.4-alpine"
+  redict:
+    image: "registry.redict.io/redict:7"
+    healthcheck:
+      test: [ "CMD", "redict-cli", "--raw", "incr", "ping" ]
   postgres:
     image: "postgres:alpine"
     environment:
@@ -68,7 +70,7 @@ services:
         - path: meta.sr.ht/api
           action: rebuild
     depends_on:
-      - redis
+      - redict
       - postgres
     ports:
       - "127.0.0.1:5100:5100"
@@ -83,7 +85,7 @@ services:
           action: sync
           target: /src/meta.sr.ht/metasrht
     depends_on:
-      - redis
+      - redict
       - postgres
       - meta-api
     ports:
@@ -94,7 +96,7 @@ services:
     build:
       target: srht-todo
     depends_on:
-      - redis
+      - redict
       - postgres
     develop:
       watch:
@@ -113,7 +115,7 @@ services:
           action: sync
           target: /src/todo.sr.ht/todosrht
     depends_on:
-      - redis
+      - redict
       - postgres
       - todo-api
       - meta
@@ -131,7 +133,7 @@ services:
         - path: todo.sr.ht/todosrht
           action: rebuild
     depends_on:
-      - redis
+      - redict
       - postgres
       - todo-api
     ports:
@@ -143,7 +145,7 @@ services:
       target: srht-git
     user: git
     depends_on:
-      - redis
+      - redict
       - postgres
       - minio
     volumes:
@@ -171,7 +173,7 @@ services:
           action: sync
           target: /src/scm.sr.ht/scmsrht
     depends_on:
-      - redis
+      - redict
       - postgres
       - minio
       - git-api
@@ -209,7 +211,7 @@ services:
     build:
       target: srht-man
     depends_on:
-      - redis
+      - redict
       - postgres
       - git
     develop:
@@ -229,7 +231,7 @@ services:
           action: sync
           target: /src/man.sr.ht/mansrht
     depends_on:
-      - redis
+      - redict
       - postgres
       - man-api
       - meta
@@ -241,7 +243,7 @@ services:
     build:
       target: srht-paste
     depends_on:
-      - redis
+      - redict
       - postgres
     develop:
       watch:
@@ -260,7 +262,7 @@ services:
           action: sync
           target: /src/paste.sr.ht/pastesrht
     depends_on:
-      - redis
+      - redict
       - postgres
       - paste-api
       - meta
@@ -272,7 +274,7 @@ services:
     build:
       target: srht-hub
     depends_on:
-      - redis
+      - redict
       - postgres
     develop:
       watch:
@@ -291,7 +293,7 @@ services:
           action: sync
           target: /src/hub.sr.ht/hubsrht
     depends_on:
-      - redis
+      - redict
       - postgres
       - hub-api
       - meta
