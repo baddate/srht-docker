@@ -3,7 +3,7 @@
 # Note: this script is only run once when the postgres volume is created. To
 # run it again:
 #
-#     docker volume rm srht-containers_postgres-data
+#     docker volume rm srht-postgres-data
 
 password='$2b$12$mlcAuUeU5reidsdPcZm/kOR4EWkZE2lbMvyVSHLpDuzDtm6MGn0Ne'
 client_secret='3eeeef2fd9d1e0176a50ee76d3382f7211231b832852bdfc3569a3bb5512158a19b1262b73ea735059004fd3ded53303e42f605e68ccbc9d3af84a373331aa9d'
@@ -29,7 +29,7 @@ VALUES
 	(NOW(), NOW(), 1, 'man.sr.ht', 'man', '$client_secret', '3387e161',
 		'http://127.0.0.1:5004/oauth/callback', TRUE),
 	(NOW(), NOW(), 1, 'paste.sr.ht', 'paste', '$client_secret', '3387e161',
-		'http://127.0.0.1:5011/oauth/callback', TRUE);
+		'http://127.0.0.1:5011/oauth/callback', TRUE),
 	(NOW(), NOW(), 1, 'hub.sr.ht', 'hub', '$client_secret', '3387e161',
 		'http://127.0.0.1:5011/oauth/callback', TRUE);
 EOF
