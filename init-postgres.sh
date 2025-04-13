@@ -31,6 +31,8 @@ VALUES
 	(NOW(), NOW(), 1, 'paste.sr.ht', 'paste', '$client_secret', '3387e161',
 		'http://127.0.0.1:5011/oauth/callback', TRUE),
 	(NOW(), NOW(), 1, 'hub.sr.ht', 'hub', '$client_secret', '3387e161',
+		'http://127.0.0.1:5011/oauth/callback', TRUE),
+	(NOW(), NOW(), 1, 'lists.sr.ht', 'lists', '$client_secret', '3387e161',
 		'http://127.0.0.1:5011/oauth/callback', TRUE);
 EOF
 
@@ -48,3 +50,6 @@ psql -d paste.sr.ht </data/paste.sr.ht.sql
 
 createdb hub.sr.ht
 psql -d hub.sr.ht </data/hub.sr.ht.sql
+
+createdb lists.sr.ht
+psql -d lists.sr.ht </data/lists.sr.ht.sql

@@ -53,6 +53,12 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
 	--mount=type=cache,target=/root/go/pkg/mod \
 	cd /src/hub.sr.ht && make
 
+FROM srht-core-build AS srht-lists-build
+ADD lists.sr.ht /src/lists.sr.ht/
+RUN --mount=type=cache,target=/root/.cache/go-build \
+	--mount=type=cache,target=/root/go/pkg/mod \
+	cd /src/lists.sr.ht && make
+
 FROM srht-core AS srht-meta
 RUN --mount=type=cache,target=/var/cache/apk \
 	apk -U add meta.sr.ht
@@ -96,3 +102,10 @@ RUN --mount=type=cache,target=/var/cache/apk \
 COPY --from=srht-hub-build /src/hub.sr.ht /src/hub.sr.ht
 ENV PYTHONPATH="${PYTHONPATH}:/src/hub.sr.ht"
 ENV PATH="${PATH}:/src/hub.sr.ht"
+
+FROM srht-core AS srht-lists
+RUN --mount=type=cache,target=/var/cache/apk \
+	apk -U add lists.sr.ht
+COPY --from=srht-lists-build /src/lists.sr.ht /src/lists.sr.ht
+ENV PYTHONPATH="${PYTHONPATH}:/src/lists.sr.ht"
+ENV PATH="${PATH}:/src/lists.sr.ht"

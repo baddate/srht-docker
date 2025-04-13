@@ -51,6 +51,7 @@ services:
       - "./man.sr.ht/schema.sql:/data/man.sr.ht.sql"
       - "./paste.sr.ht/schema.sql:/data/paste.sr.ht.sql"
       - "./hub.sr.ht/schema.sql:/data/hub.sr.ht.sql"
+      - "./lists.sr.ht/schema.sql:/data/lists.sr.ht.sql"
   minio:
     image: "quay.io/minio/minio"
     environment:
@@ -300,3 +301,34 @@ services:
     ports:
       - "127.0.0.1:5012:5012"
     command: flask --app hubsrht.app:app --debug run --host=0.0.0.0 --port=5012
+  lists-api:
+    <<: *srht-service
+    build:
+      target: srht-lists
+    depends_on:
+      - redict
+      - postgres
+    develop:
+      watch:
+        - path: lists.sr.ht/api
+          action: rebuild
+    ports:
+      - "127.0.0.1:5106:5106"
+    command: /src/lists.sr.ht/lists.sr.ht-api
+  lists:
+    <<: *srht-service
+    build:
+      target: srht-lists
+    develop:
+      watch:
+        - path: lists.sr.ht/listssrht
+          action: sync
+          target: /src/lists.sr.ht/listssrht
+    depends_on:
+      - redict
+      - postgres
+      - lists-api
+      - meta
+    ports:
+      - "127.0.0.1:5006:5006"
+    command: flask --app listssrht.app:app --debug run --host=0.0.0.0 --port=5006
