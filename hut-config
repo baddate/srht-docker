@@ -10,13 +10,7 @@ instance "localhost" {
 	git {
 		origin "http://localhost:5101"
 	}
-	man {
-		origin "http://localhost:5104"
-	}
 	paste {
 		origin "http://localhost:5111"
-	}
-	hub {
-		origin "http://localhost:5112"
 	}
 }
