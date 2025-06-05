@@ -1,5 +1,5 @@
 instance "localhost" {
-	access-token "AMln/GUAAAAAAAAEcm9vdLsffqDBwbdwnZutsktx1TcIASYLoo7bBhu4fqOmkG1U"
+	access-token "AEM8WiQBAAAAAAAEcm9vdMU8WdsAWVRCzIYCFq/o5W8dCnj8Htmu33D+vnMeszAa"
 
 	meta {
 		origin "http://localhost:5100"
