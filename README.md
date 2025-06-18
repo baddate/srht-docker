@@ -24,6 +24,7 @@ The following services are included:
   SSH access at ssh://git@127.0.0.1:5901
 - man.sr.ht: web frontend at http://127.0.0.1:5004
 - lists.sr.ht: web frontend at http://127.0.0.1:5006
+  SMTP server at 127.0.0.1:5906 accepting mails for ~$USER/$LIST@lists.sr.ht
 - paste.sr.ht: web frontend at http://127.0.0.1:5011
 - hub.sr.ht: web frontend at http://127.0.0.1:5012
 - minio: web frontend at http://127.0.0.1:9001,
@@ -66,14 +67,23 @@ the `meta` container as follows:
 
 ## Populate lists.sr.ht with real data
 
-The service is currently not setup to receive/send emails, hence the easiest to
-populate lists is to import existing data.
+[Optional] If you want to simulate the integration between the mail data and
+actual users, you will need to create users via [127.0.0.1:5000](http://127.0.0.1:5000)
+that have the appropriate email address setup.
 
-- [Optional] Step 0: If you want to simulate the integration between the mail
-  data and actual users, you will need to create users via
-  [127.0.0.1:5000](http://127.0.0.1:5000) that have the appropriate email
-  address setup.
+Data can be ingested in the following two ways.
+
+### Import data from existing list
+
+(We assume that the existing list is on lists.sr.ht; instructions can be easily
+tweaked for other providers.)
+
 - Step 1: Export one of your lists from [lists.sr.ht](https://lists.sr.ht) via
   settings => import/export => Export mail spool
 - Step 2: Import it into [127.0.0.1:5006](http://127.0.0.1:5006) via settings
   => import/export => Import mail spool
+
+### Send new emails to the list
+
+This is very easy using the `contrib/send_email.py` script. Examples of usage can
+be found at the top of the script.

@@ -315,6 +315,22 @@ services:
     ports:
       - "127.0.0.1:5106:5106"
     command: /src/lists.sr.ht/lists.sr.ht-api
+  lists-ingress:
+    <<: *srht-service
+    build:
+      target: srht-lists
+    develop:
+      watch:
+        - path: lists.sr.ht/listssrht
+          action: sync
+          target: /src/lists.sr.ht/listssrht
+    depends_on:
+      - redict
+      - postgres
+      - lists-api
+    ports:
+      - "127.0.0.1:5906:5906"
+    command: /src/lists.sr.ht/lists.sr.ht-ingress
   lists:
     <<: *srht-service
     build:
