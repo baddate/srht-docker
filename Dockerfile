@@ -1,11 +1,11 @@
-FROM docker.io/alpine:3.20 AS srht-core
+FROM docker.io/alpine:3.22 AS srht-core
 RUN mkdir -p /var/cache/apk && ln -s /var/cache/apk /etc/apk/cache
 RUN --mount=type=cache,target=/var/cache/apk \
 	apk -U add curl
-RUN echo "https://mirror.sr.ht/alpine/v3.20/sr.ht" >>/etc/apk/repositories
+RUN echo "https://mirror.sr.ht/alpine/v3.22/sr.ht" >>/etc/apk/repositories
 RUN curl -o /etc/apk/keys/alpine@sr.ht.rsa.pub 'https://mirror.sr.ht/alpine/alpine%40sr.ht.rsa.pub'
 RUN --mount=type=cache,target=/var/cache/apk \
-	apk -U add py3-srht make
+	apk -U add py3-srht ariadne-codegen make
 ADD core.sr.ht /src/core.sr.ht/
 RUN make -C /src/core.sr.ht/ install
 ENV SRHT_PATH=/src/core.sr.ht/srht
