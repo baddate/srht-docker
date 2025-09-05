@@ -75,9 +75,13 @@ ENV PATH="${PATH}:/src/todo.sr.ht"
 
 FROM srht-core AS srht-git
 RUN --mount=type=cache,target=/var/cache/apk \
-	apk -U add git.sr.ht openssh
+	apk -U add git.sr.ht sourcehut-ssh openssh
 ADD scm.sr.ht /src/scm.sr.ht/
 COPY --from=srht-git-build /src/git.sr.ht /src/git.sr.ht
+# Create various log files and make them writable to avoid spurious
+# messages displayed upon "git clone"
+RUN touch /var/log/git.sr.ht-shell /var/log/git.sr.ht-update-hook
+RUN chmod 666 /var/log/git.sr.ht-shell /var/log/git.sr.ht-update-hook
 RUN passwd -u git # Unlock account to allow SSH login
 ENV PYTHONPATH="${PYTHONPATH}:/src/scm.sr.ht:/src/git.sr.ht"
 ENV PATH="${PATH}:/src/git.sr.ht"
