@@ -13,4 +13,7 @@ instance "localhost" {
 	paste {
 		origin "http://localhost:5111"
 	}
+	lists {
+		origin "http://localhost:5106"
+	}
 }
