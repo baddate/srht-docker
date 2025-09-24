@@ -36,6 +36,7 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
 	cd /src/git.sr.ht && make
 
 FROM srht-core-build AS srht-man-build
+ADD git.sr.ht/api/graph/schema.graphqls /usr/local/share/sourcehut/git.sr.ht.graphqls
 ADD man.sr.ht /src/man.sr.ht/
 RUN --mount=type=cache,target=/root/.cache/go-build \
 	--mount=type=cache,target=/root/go/pkg/mod \
@@ -95,7 +96,7 @@ ENV PATH="${PATH}:/src/git.sr.ht"
 
 FROM srht-core AS srht-man
 RUN --mount=type=cache,target=/var/cache/apk \
-	apk -U add man.sr.ht
+	apk -U add man.sr.ht py3-yaml
 COPY --from=srht-man-build /src/man.sr.ht /src/man.sr.ht
 ENV PYTHONPATH="${PYTHONPATH}:/src/man.sr.ht"
 ENV PATH="${PATH}:/src/man.sr.ht"
