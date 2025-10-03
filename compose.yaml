@@ -6,6 +6,8 @@ x-srht-service: &srht-service
       target: /etc/sr.ht/pgp/pubkey.asc
     - source: pgp-privkey
       target: /etc/sr.ht/pgp/privkey.asc
+  environment:
+      PYTHONUNBUFFERED: 1
 
 name: srht
 
