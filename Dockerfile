@@ -48,6 +48,13 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
 	cd /src/paste.sr.ht && make
 
 FROM srht-core-build AS srht-hub-build
+RUN --mount=type=cache,target=/var/cache/apk \
+	apk -U add hg.sr.ht-dev builds.sr.ht-dev
+RUN cp /usr/share/sourcehut/hg.sr.ht.graphqls /usr/local/share/sourcehut/hg.sr.ht.graphqls
+RUN cp /usr/share/sourcehut/builds.sr.ht.graphqls /usr/local/share/sourcehut/builds.sr.ht.graphqls
+ADD git.sr.ht/api/graph/schema.graphqls /usr/local/share/sourcehut/git.sr.ht.graphqls
+ADD lists.sr.ht/api/graph/schema.graphqls /usr/local/share/sourcehut/lists.sr.ht.graphqls
+ADD todo.sr.ht/api/graph/schema.graphqls /usr/local/share/sourcehut/todo.sr.ht.graphqls
 ADD hub.sr.ht /src/hub.sr.ht/
 RUN --mount=type=cache,target=/root/.cache/go-build \
 	--mount=type=cache,target=/root/go/pkg/mod \
