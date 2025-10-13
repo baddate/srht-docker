@@ -8,6 +8,8 @@ x-srht-service: &srht-service
       target: /etc/sr.ht/pgp/privkey.asc
   environment:
       PYTHONUNBUFFERED: 1
+  extra_hosts:
+      - "host.docker.internal:host-gateway"
 
 name: srht
 
