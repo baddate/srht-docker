@@ -31,9 +31,9 @@ VALUES
 	(NOW(), NOW(), 1, 'paste.sr.ht', 'paste', '$client_secret', '3387e161',
 		'http://127.0.0.1:5011/oauth/callback', TRUE),
 	(NOW(), NOW(), 1, 'hub.sr.ht', 'hub', '$client_secret', '3387e161',
-		'http://127.0.0.1:5011/oauth/callback', TRUE),
+		'http://127.0.0.1:5014/oauth/callback', TRUE),
 	(NOW(), NOW(), 1, 'lists.sr.ht', 'lists', '$client_secret', '3387e161',
-		'http://127.0.0.1:5011/oauth/callback', TRUE);
+		'http://127.0.0.1:5006/oauth/callback', TRUE);
 EOF
 
 createdb todo.sr.ht
