@@ -287,7 +287,7 @@ services:
         - path: hub.sr.ht/api
           action: rebuild
     ports:
-      - "127.0.0.1:5112:5112"
+      - "127.0.0.1:5114:5114"
     command: /src/hub.sr.ht/hub.sr.ht-api
   hub:
     <<: *srht-service
@@ -304,8 +304,8 @@ services:
       - hub-api
       - meta
     ports:
-      - "127.0.0.1:5012:5012"
-    command: flask --app hubsrht.app:app --debug run --host=0.0.0.0 --port=5012
+      - "127.0.0.1:5014:5014"
+    command: flask --app hubsrht.app:app --debug run --host=0.0.0.0 --port=5014
   lists-api:
     <<: *srht-service
     build:

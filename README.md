@@ -26,7 +26,7 @@ The following services are included:
 - lists.sr.ht: web frontend at http://127.0.0.1:5006
   SMTP server at 127.0.0.1:5906 accepting mails for ~$USER/$LIST@lists.sr.ht
 - paste.sr.ht: web frontend at http://127.0.0.1:5011
-- hub.sr.ht: web frontend at http://127.0.0.1:5012
+- hub.sr.ht: web frontend at http://127.0.0.1:5014
 - minio: web frontend at http://127.0.0.1:9001,
   username: minio, password: jIPk1RZ8gdhQwnUL4YtrOAXsFpHvb4Mw8hEwfLq
 
