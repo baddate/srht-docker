@@ -10,6 +10,7 @@ x-srht-service: &srht-service
       PYTHONUNBUFFERED: 1
   extra_hosts:
       - "host.docker.internal:host-gateway"
+      - "host.containers.internal:host-gateway"
 
 name: srht
 
