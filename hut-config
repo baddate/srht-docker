@@ -16,4 +16,10 @@ instance "localhost" {
 	lists {
 		origin "http://localhost:5106"
 	}
+	man {
+		origin "http://localhost:5104"
+	}
+	hub {
+		origin "http://localhost:5114"
+	}
 }
