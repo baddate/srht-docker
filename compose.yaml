@@ -335,6 +335,7 @@ services:
       - lists-api
     ports:
       - "127.0.0.1:5906:5906"
+      - "127.0.0.1:8006:8006"
     command: /src/lists.sr.ht/lists.sr.ht-ingress
   lists:
     <<: *srht-service
