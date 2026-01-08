@@ -33,7 +33,9 @@ VALUES
 	(NOW(), NOW(), 1, 'hub.sr.ht', 'hub', '$client_secret', '3387e161',
 		'http://127.0.0.1:5014/oauth/callback', TRUE),
 	(NOW(), NOW(), 1, 'lists.sr.ht', 'lists', '$client_secret', '3387e161',
-		'http://127.0.0.1:5006/oauth/callback', TRUE);
+		'http://127.0.0.1:5006/oauth/callback', TRUE),
+	(NOW(), NOW(), 1, 'builds.sr.ht', 'builds', '$client_secret', '3387e161',
+		'http://127.0.0.1:5002/oauth/callback', TRUE);
 EOF
 
 createdb todo.sr.ht
@@ -53,3 +55,6 @@ psql -d hub.sr.ht </data/hub.sr.ht.sql
 
 createdb lists.sr.ht
 psql -d lists.sr.ht </data/lists.sr.ht.sql
+
+createdb builds.sr.ht
+psql -d builds.sr.ht </data/builds.sr.ht.sql

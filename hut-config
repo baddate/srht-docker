@@ -4,6 +4,9 @@ instance "localhost" {
 	meta {
 		origin "http://localhost:5100"
 	}
+	builds {
+		origin "http://localhost:5102"
+	}
 	todo {
 		origin "http://localhost:5103"
 	}

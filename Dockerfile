@@ -67,6 +67,13 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
 	--mount=type=cache,target=/root/go/pkg/mod \
 	cd /src/lists.sr.ht && make
 
+FROM srht-core-build AS srht-builds-build
+ADD meta.sr.ht/api/graph/schema.graphqls /usr/local/share/sourcehut/meta.sr.ht.graphqls
+ADD builds.sr.ht /src/builds.sr.ht/
+RUN --mount=type=cache,target=/root/.cache/go-build \
+	--mount=type=cache,target=/root/go/pkg/mod \
+	cd /src/builds.sr.ht && make
+
 FROM srht-core AS srht-meta
 RUN --mount=type=cache,target=/var/cache/apk,sharing=locked \
 	apk -U add meta.sr.ht
@@ -111,8 +118,9 @@ ENV PATH="${PATH}:/src/paste.sr.ht"
 FROM srht-core AS srht-hub
 RUN --mount=type=cache,target=/var/cache/apk,sharing=locked \
 	apk -U add hub.sr.ht
+ADD builds.sr.ht /src/builds.sr.ht/
 COPY --from=srht-hub-build /src/hub.sr.ht /src/hub.sr.ht
-ENV PYTHONPATH="${PYTHONPATH}:/src/hub.sr.ht"
+ENV PYTHONPATH="${PYTHONPATH}:/src/hub.sr.ht:/src/builds.sr.ht"
 ENV PATH="${PATH}:/src/hub.sr.ht"
 
 FROM srht-core AS srht-lists
@@ -121,3 +129,10 @@ RUN --mount=type=cache,target=/var/cache/apk,sharing=locked \
 COPY --from=srht-lists-build /src/lists.sr.ht /src/lists.sr.ht
 ENV PYTHONPATH="${PYTHONPATH}:/src/lists.sr.ht"
 ENV PATH="${PATH}:/src/lists.sr.ht"
+
+FROM srht-core AS srht-builds
+RUN --mount=type=cache,target=/var/cache/apk \
+	apk -U add builds.sr.ht
+COPY --from=srht-builds-build /src/builds.sr.ht /src/builds.sr.ht
+ENV PYTHONPATH="${PYTHONPATH}:/src/builds.sr.ht"
+ENV PATH="${PATH}:/src/builds.sr.ht"
