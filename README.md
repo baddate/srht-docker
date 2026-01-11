@@ -1,5 +1,7 @@
 # sr.ht-container-compose
 
+# Setup
+
 The first time sr.ht-container-compose is used, sr.ht sources need to be cloned
 locally:
 
@@ -11,6 +13,8 @@ Then sr.ht can be built and started:
 
 Any changes to the sr.ht sources will rebuild and reload sr.ht containers as
 needed.
+
+# Usage
 
 A default admin "root" is created, with password "root" and a personal access
 token. A configuration file for [hut] is available in `hut-config`.
