@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# (ChatGPT generated) Utility to send emails to a sr.ht-container-compose list or todo.
+# Send emails to a sr.ht-container-compose list or todo.
 #
 # The script automatically picks the right port (on 127.0.0.1) from the destination
 # domain (lists.sr.ht for lists, todo.sr.ht for todos).

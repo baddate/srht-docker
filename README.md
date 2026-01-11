@@ -91,3 +91,9 @@ tweaked for other providers.)
 
 This is very easy using the `contrib/send_email.py` script. Examples of usage can
 be found at the top of the script.
+
+# Patches
+
+Patches for this project can be sent to my [public inbox]. Questions too.
+
+[public inbox]: https://lists.sr.ht/~whynothugo/public-inbox
